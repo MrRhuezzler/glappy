@@ -1,12 +1,9 @@
-from glob import glob
 import os
 import pygame
-import numpy as np
 import random
-
+import numpy as np
 from brain import Network, sigmoid
 from genome import Genetics
-
 pygame.font.init()
 
 WIDTH = 500
@@ -27,7 +24,7 @@ BG_IMG = pygame.transform.scale2x(
 STAT_FONT = pygame.font.SysFont('comicsans', 30)
 
 win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("GA - Flappy")
+pygame.display.set_caption("Glappy")
 
 
 class Bird:
@@ -98,7 +95,6 @@ class Bird:
     def get_mask(self):
         return pygame.mask.from_surface(self.img)
 
-
 class Pipe:
     GAP = 200
     VEL = 5
@@ -143,7 +139,6 @@ class Pipe:
             return True
         return False
 
-
 class Base:
     VEL = 5
     WIDTH = BASE_IMG.get_width()
@@ -167,7 +162,6 @@ class Base:
     def draw(self, win):
         win.blit(self.IMG, (self.x1, self.y))
         win.blit(self.IMG, (self.x2, self.y))
-
 
 def draw_window(win, birds, pipes, base, score, gen, pop_size, alive):
     win.blit(BG_IMG, (0, 0))
@@ -193,7 +187,6 @@ def draw_window(win, birds, pipes, base, score, gen, pop_size, alive):
     base.draw(win)
     pygame.display.update()
 
-
 def fit(genomes, gen, pop_size):
 
     nets = []
@@ -201,8 +194,7 @@ def fit(genomes, gen, pop_size):
     ge = []
 
     for g in genomes:
-        nn = Network()
-        nn.from_genome(g)
+        nn = Network(g)
         nets.append(nn)
         birds.append(Bird(230, 350))
         ge.append(g)
@@ -219,6 +211,11 @@ def fit(genomes, gen, pop_size):
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_g:
+                    run = False
+                    break
 
         pipe_ind = 0
         if len(birds) > 0:
@@ -243,7 +240,7 @@ def fit(genomes, gen, pop_size):
 
             for x, bird in enumerate(birds):
                 if pipe.collide(bird):
-                    ge[x].fitness -= 1
+                    ge[x].fitness -= 5
                     birds.pop(x)
                     nets.pop(x)
                     ge.pop(x)
@@ -258,7 +255,7 @@ def fit(genomes, gen, pop_size):
         if add_pipe:
             score += 1
             for g in ge:
-                g.fitness += 5
+                g.fitness += 1
             pipes.append(Pipe(600))
 
         for r in rem:

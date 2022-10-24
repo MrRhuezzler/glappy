@@ -7,7 +7,6 @@ import random
 import numpy as np
 from brain import FCLayer, sigmoid
 
-
 class Genome:
     def __init__(self, network: List[FCLayer]) -> None:
         self.network = network
@@ -28,7 +27,7 @@ class Genetics:
     def __flatten_gene(g:  Genome):
         genes = []
         for layer in g.network:
-            genes.extend(layer.flattenw())
+            genes.extend(layer.flatten())
         return genes
 
     @staticmethod
