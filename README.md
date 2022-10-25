@@ -2,7 +2,7 @@
   <img src="images/glappy.png"/>
 </p>
 
-Author           : [MrRhuezzler](https://github.com/MrRhuezzler)  
+Authors          : [MrRhuezzler](https://github.com/MrRhuezzler), [Sakthi Priyadharshini](https://github.com/sakthi-priyadharshini)  
 Project Language : Python  
 Project Year     : 2022  
 
